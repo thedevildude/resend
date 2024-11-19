@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Heart, Send, Clock } from "lucide-react";
+import { Heart, Send, Clock, Circle } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
+import axiosInstance from "../lib/axios";
 
 export default function EmailToEx() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ export default function EmailToEx() {
     message: "",
     duration: "365",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,27 +28,69 @@ export default function EmailToEx() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const textoDay = (text: string) => {
+    switch (text) {
+      case "ONE":
+        return "30";
+      case "THREE":
+        return "90";
+      case "SIX":
+        return "180";
+      default:
+        return "365";
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate sending email (in reality, this would be handled by a backend service)
-    toast.success(
-      "Your message is set to be delivered in 365 days! Time heals... or not! 😉",
-      {
+    try {
+      setIsLoading(true);
+      const res = await axiosInstance.post("/sendemail", {
+        sender_email: formData.senderEmail,
+        recipient_email: formData.exEmail,
+        subject: formData.subject,
+        message: formData.message,
+      });
+      toast.success(
+        "Your message is set to be delivered! Time heals... or not! 😉",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
+      setFormData({
+        senderEmail: "",
+        exEmail: "",
+        subject: "",
+        message: "",
+        duration: "365",
+      });
+      console.log(res);
+      setIsLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      setIsLoading(false);
+      toast.error("Bruh how many exes do you have", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-      }
-    );
+      });
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-md w-full mb-8">
         <h1 className="text-3xl font-bold text-center mb-6 text-purple-600">
-          Email Your Ex... in a Year! 💌
+          Email Your Beloved Ex... in a Year! 💌
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -131,17 +175,20 @@ export default function EmailToEx() {
             </label>
             <Tabs
               defaultValue="TWELVE"
-              className="w-full"
               onValueChange={(value) =>
                 setFormData((prevState) => ({
                   ...prevState,
                   duration: value,
                 }))
               }
+              className="w-full space-y-2"
+              value={formData.duration}
             >
               <TabsList>
                 <TabsTrigger value="ONE">1 month</TabsTrigger>
                 <TabsTrigger value="THREE">3 months</TabsTrigger>
+              </TabsList>
+              <TabsList>
                 <TabsTrigger value="SIX">6 months</TabsTrigger>
                 <TabsTrigger value="TWELVE">1 year</TabsTrigger>
               </TabsList>
@@ -155,8 +202,17 @@ export default function EmailToEx() {
           </Button>
         </form>
         <div className="mt-6 text-center text-sm text-gray-500">
-          <Clock className="inline-block mr-1 h-4 w-4" />
-          Your message will be delivered in 365 days
+          {isLoading ? (
+            <Circle className="animate spin" />
+          ) : (
+            <div>
+              <Clock className="inline-block mr-1 h-4 w-4" />
+              <p>
+                Your message will be delivered in {textoDay(formData.duration)}{" "}
+                days
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-4 text-center">
           <Heart className="inline-block text-red-500 h-6 w-6 animate-pulse" />

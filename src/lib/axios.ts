@@ -24,3 +24,5 @@ axiosInstance.interceptors.response.use(
     throw error;
   }
 );
+
+export default axiosInstance;
