@@ -130,7 +130,7 @@ export default function EmailToEx() {
               When to send the message
             </label>
             <Tabs
-              defaultValue="365"
+              defaultValue="TWELVE"
               className="w-full"
               onValueChange={(value) =>
                 setFormData((prevState) => ({
