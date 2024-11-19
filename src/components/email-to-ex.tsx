@@ -50,6 +50,17 @@ export default function EmailToEx() {
     // Simulate sending email (in reality, this would be handled by a backend service)
     try {
       setIsLoading(true);
+      toast.success(
+        "Please wait for two minutes, free servers are slow",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        }
+      );
       const res = await axiosInstance.post("/sendemail", {
         sender_email: formData.senderEmail,
         recipient_email: formData.exEmail,
