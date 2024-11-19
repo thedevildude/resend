@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Heart, Send, Clock } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 
 export default function EmailToEx() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function EmailToEx() {
     exEmail: "",
     subject: "",
     message: "",
+    duration: "365",
   });
 
   const handleChange = (
@@ -88,12 +90,13 @@ export default function EmailToEx() {
               htmlFor="subject"
               className="block text-sm font-medium text-gray-700"
             >
-              Subject (Optional)
+              Subject
             </label>
             <Input
               type="text"
               id="subject"
               name="subject"
+              required
               value={formData.subject}
               onChange={handleChange}
               className="mt-1"
@@ -118,6 +121,31 @@ export default function EmailToEx() {
               Only 0.0001% chance they'll see it"
               rows={4}
             />
+          </div>
+          <div>
+            <label
+              htmlFor="Duration"
+              className="block text-sm font-medium text-gray-700"
+            >
+              When to send the message
+            </label>
+            <Tabs
+              defaultValue="365"
+              className="w-full"
+              onValueChange={(value) =>
+                setFormData((prevState) => ({
+                  ...prevState,
+                  duration: value,
+                }))
+              }
+            >
+              <TabsList>
+                <TabsTrigger value="30">1 month</TabsTrigger>
+                <TabsTrigger value="90">3 months</TabsTrigger>
+                <TabsTrigger value="180">6 months</TabsTrigger>
+                <TabsTrigger value="365">1 year</TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
           <Button
             type="submit"
