@@ -4,9 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Heart, Send, Clock, Circle } from "lucide-react";
+import { Heart, Send, Clock } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import axiosInstance from "../lib/axios";
+import Loader from "./Loader";
 /* import { Checkbox } from "./ui/checkbox";
 import { Link } from "react-router-dom"; */
 
@@ -19,8 +20,8 @@ export default function EmailToEx() {
     duration: "365",
   });
   const [isLoading, setIsLoading] = useState(false);
-/*   const [isChecked, setIsChecked] = useState(false);
- */
+  /*   const [isChecked, setIsChecked] = useState(false);
+   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -216,23 +217,26 @@ export default function EmailToEx() {
           </div> */}
           <Button
             type="submit"
+            disabled={isLoading}
             className="w-full bg-purple-600 hover:bg-purple-700"
           >
-            <Send className="mr-2 h-4 w-4" /> Send to the Future!
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <div>
+                <Send className="mr-2 h-4 w-4" /> <p>Send to the Future!</p>
+              </div>
+            )}
           </Button>
         </form>
         <div className="mt-6 text-center text-sm text-gray-500">
-          {isLoading ? (
-            <Circle className="animate spin" />
-          ) : (
-            <div>
-              <Clock className="inline-block mr-1 h-4 w-4" />
-              <p>
-                Your message will be delivered in {textoDay(formData.duration)}{" "}
-                days
-              </p>
-            </div>
-          )}
+          <div>
+            <Clock className="inline-block mr-1 h-4 w-4" />
+            <p>
+              Your message will be delivered in {textoDay(formData.duration)}{" "}
+              days
+            </p>
+          </div>
         </div>
         <div className="mt-4 text-center">
           <Heart className="inline-block text-red-500 h-6 w-6 animate-pulse" />
