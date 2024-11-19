@@ -33,6 +33,11 @@ const Header = () => {
       name: "Twitter", 
       href: "https://www.x.com/the_devil_dude", 
       icon: <X className="inline-block mr-2 w-5 h-5" /> 
+    },
+    { 
+      name: "Privacy Policy", 
+      href: "/privacy-policy", 
+      icon: <X className="inline-block mr-2 w-5 h-5" /> 
     }
   ];
 

@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Heart, Send, Clock, Circle } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import axiosInstance from "../lib/axios";
-import { Checkbox } from "./ui/checkbox";
-import { Link } from "react-router-dom";
+/* import { Checkbox } from "./ui/checkbox";
+import { Link } from "react-router-dom"; */
 
 export default function EmailToEx() {
   const [formData, setFormData] = useState({
@@ -19,8 +19,8 @@ export default function EmailToEx() {
     duration: "365",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-
+/*   const [isChecked, setIsChecked] = useState(false);
+ */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -197,7 +197,7 @@ export default function EmailToEx() {
               </TabsList>
             </Tabs>
           </div>
-          <div>
+          {/* <div>
             <label
               htmlFor="message"
               className="block text-sm font-medium text-gray-700"
@@ -213,7 +213,7 @@ export default function EmailToEx() {
               className="mt-1"
               aria-hidden="false"
             />
-          </div>
+          </div> */}
           <Button
             type="submit"
             className="w-full bg-purple-600 hover:bg-purple-700"
