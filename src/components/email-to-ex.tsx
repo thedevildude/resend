@@ -140,10 +140,10 @@ export default function EmailToEx() {
               }
             >
               <TabsList>
-                <TabsTrigger value="30">1 month</TabsTrigger>
-                <TabsTrigger value="90">3 months</TabsTrigger>
-                <TabsTrigger value="180">6 months</TabsTrigger>
-                <TabsTrigger value="365">1 year</TabsTrigger>
+                <TabsTrigger value="ONE">1 month</TabsTrigger>
+                <TabsTrigger value="THREE">3 months</TabsTrigger>
+                <TabsTrigger value="SIX">6 months</TabsTrigger>
+                <TabsTrigger value="TWELVE">1 year</TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
