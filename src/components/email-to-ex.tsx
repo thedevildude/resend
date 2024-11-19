@@ -211,6 +211,7 @@ export default function EmailToEx() {
               onCheckedChange={() => setIsChecked(!isChecked)}
               required
               className="mt-1"
+              aria-hidden="false"
             />
           </div>
           <Button
