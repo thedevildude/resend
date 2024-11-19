@@ -1,5 +1,6 @@
 import Home from "@/pages";
 import AppLayout from "@/pages/layout";
+import PrivacyPolicy from "@/pages/privacy-policy";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy/>
       }
     ],
   },

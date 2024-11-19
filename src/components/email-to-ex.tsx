@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Heart, Send, Clock, Circle } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import axiosInstance from "../lib/axios";
+import { Checkbox } from "./ui/checkbox";
+import { Link } from "react-router-dom";
 
 export default function EmailToEx() {
   const [formData, setFormData] = useState({
@@ -17,6 +19,7 @@ export default function EmailToEx() {
     duration: "365",
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -193,6 +196,22 @@ export default function EmailToEx() {
                 <TabsTrigger value="TWELVE">1 year</TabsTrigger>
               </TabsList>
             </Tabs>
+          </div>
+          <div>
+            <label
+              htmlFor="message"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Please read and accept the <Link className="text-blue-500" to="/privacy-policy">privacy policy</Link>
+            </label>
+            <Checkbox
+              id="privacypolicy"
+              name="privacypolicy"
+              checked={isChecked}
+              onCheckedChange={() => setIsChecked(!isChecked)}
+              required
+              className="mt-1"
+            />
           </div>
           <Button
             type="submit"
