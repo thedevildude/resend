@@ -50,17 +50,14 @@ export default function EmailToEx() {
     // Simulate sending email (in reality, this would be handled by a backend service)
     try {
       setIsLoading(true);
-      toast.success(
-        "Please wait for two minutes, free servers are slow",
-        {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        }
-      );
+      toast.success("Please wait for two minutes, free servers are slow", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       const res = await axiosInstance.post("/sendemail", {
         sender_email: formData.senderEmail,
         recipient_email: formData.exEmail,
@@ -234,8 +231,9 @@ export default function EmailToEx() {
             {isLoading ? (
               <Loader />
             ) : (
-              <div>
-                <Send className="mr-2 h-4 w-4" /> <p>Send to the Future!</p>
+              <div className="flex flex-col items-center">
+                <Send className="mr-2 h-4 w-4" />
+                <p>Send to the Future!</p>
               </div>
             )}
           </Button>
